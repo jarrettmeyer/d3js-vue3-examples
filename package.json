@@ -1,0 +1,22 @@
+{
+  "name": "d3js-vue3-examples",
+  "version": "1.0.0",
+  "description": "",
+  "private": true,
+  "scripts": {
+    "dev": "nuxi dev --open --port 3000",
+    "prettier-write": "prettier --write --list-different ."
+  },
+  "dependencies": {
+    "bootstrap": "^5.3.0-alpha3",
+    "d3": "^7.8.4"
+  },
+  "devDependencies": {
+    "@types/bootstrap": "^5.2.6",
+    "@types/d3": "^7.4.0",
+    "nuxt": "^3.4.3",
+    "prettier": "^2.8.8",
+    "sass": "^1.62.1"
+  },
+  "keywords": []
+}
