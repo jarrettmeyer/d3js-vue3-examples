@@ -1,5 +1,5 @@
 <script lang="ts" setup>
-useHead({ title: "Home" });
+useHead({ title: "Home | D3.js + Vue 3" });
 </script>
 
 <template>

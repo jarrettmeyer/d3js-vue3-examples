@@ -1,4 +1,5 @@
 <script lang="ts" setup>
+useHead({ title: "Static Bar Chart | D3.js + Vue 3" });
 const innerRef = ref<HTMLElement | null>(null);
 
 const {

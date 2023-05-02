@@ -1,4 +1,5 @@
 <script lang="ts" setup>
+useHead({ title: "Preserve Aspect Ratio | D3.js + Vue 3" });
 const alignOptions = ["Min", "Mid", "Max"];
 const xAlign = ref("Mid");
 const yAlign = ref("Mid");
@@ -23,8 +24,11 @@ const preserveAspectRatio = computed(() => {
 
   <p>
     The X and Y attributes indicate position. The allowed values are
-    <code>min</code>, <code>mid</code>, and <code>max</code>.
+    <code>min</code>, <code>mid</code>, and <code>max</code>. The merge
+    attribute can be either <code>meet</code> or <code>slice</code>.
   </p>
+
+  <p>In the demo below, the viewbox is 200x200.</p>
 
   <div class="row mb-3">
     <div class="col-3">

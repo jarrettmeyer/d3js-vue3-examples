@@ -1,4 +1,5 @@
 <script lang="ts" setup>
+useHead({ title: "Resize SVG | D3.js + Vue 3" });
 const innerRef = ref<HTMLDivElement | null>(null);
 const { height, width } = useResizeObserver(innerRef);
 </script>
