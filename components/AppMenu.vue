@@ -2,15 +2,18 @@
   <section>
     <ul class="list-unstyled">
       <li>
-        <NuxtLink to="/">Home</NuxtLink>
+        <NuxtLink to="/"><BIHouse /> Home</NuxtLink>
       </li>
       <li>
-        <NuxtLink to="/about">About</NuxtLink>
+        <NuxtLink to="/about"><BIInfoCircle /> About</NuxtLink>
       </li>
     </ul>
   </section>
 
-  <h5 class="text-body-emphasis">Utils</h5>
+  <h5 class="text-body-emphasis">
+    <BITools />
+    Utils
+  </h5>
   <ul class="list-unstyled ps-2">
     <li>
       <NuxtLink to="/utils/resize-element">Resize Element</NuxtLink>
@@ -25,7 +28,7 @@
     </li>
   </ul>
 
-  <h5 class="text-body-emphasis">Visuals</h5>
+  <h5 class="text-body-emphasis"><BIBarChart /> Visuals</h5>
   <ul class="list-unstyled ps-2">
     <li>
       <NuxtLink to="/visuals/static-bar-chart">Static Bar Chart</NuxtLink>
@@ -37,6 +40,14 @@
 a {
   font-weight: normal;
   text-decoration: none;
+
+  display: inline-flex;
+  flex-direction: row;
+  align-items: center;
+}
+
+svg {
+  margin-right: 0.25rem;
 }
 
 .router-link-exact-active {

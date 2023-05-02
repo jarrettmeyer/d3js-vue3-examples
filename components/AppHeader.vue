@@ -1,6 +1,6 @@
 <template>
   <header id="app-header" class="navbar bg-body-secondary">
-    <div class="container-fluid">
+    <div class="container">
       <a class="navbar-brand">D3.js + Vue 3</a>
     </div>
   </header>
