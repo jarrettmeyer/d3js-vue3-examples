@@ -33,6 +33,9 @@
     <li>
       <NuxtLink to="/visuals/static-bar-chart">Static Bar Chart</NuxtLink>
     </li>
+    <li>
+      <NuxtLink to="/visuals/simple-animation">Simple Animation</NuxtLink>
+    </li>
   </ul>
 </template>
 
