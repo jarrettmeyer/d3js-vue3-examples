@@ -1,25 +1,48 @@
 <script lang="ts" setup>
+import { deg2Rad, rad2Deg } from "../../utils";
+
 const resizeRef = ref<HTMLElement | null>(null);
 const { width, height } = useResizeObserver(resizeRef);
 const cx = ref(25 * 8);
 const cy = ref(15 * 8);
 const r = ref(10);
 const velocity = ref(Math.floor(100 + 100 * Math.random()));
-const angleDegrees = ref(Math.floor(360 * Math.random()));
+const angleDegrees = ref(90); // ref(Math.floor(360 * Math.random()));
 const isAnimating = ref(false);
+const isMoved = ref(false);
 const lastTick = ref<number | null>(null);
 const vxMod = ref(1);
 const vyMod = ref(1);
 
 const angleRadians = computed(() => {
-  const degrees = angleDegrees.value - 90;
-  return (degrees * Math.PI) / 180;
+  return deg2Rad(angleDegrees.value);
 });
 
 const arrowPathD = computed(() => {
-  const dx = 2.5 * r.value * Math.cos(angleRadians.value) * vxMod.value;
-  const dy = 2.5 * r.value * Math.sin(angleRadians.value) * vyMod.value;
-  return [`M${cx.value},${cy.value}`, `l${dx},${dy}`].join(" ");
+  return [
+    `M0,0`,
+    `h${2.5 * r.value}`,
+    `l${-0.5 * r.value},${0.5 * r.value}`,
+    `v${-r.value}`,
+    `l${0.5 * r.value},${0.5 * r.value}`,
+    `z`,
+  ].join(" ");
+});
+
+const arrowTransform = computed(() => {
+  const rx = vxMod.value * Math.cos(angleRadians.value);
+  const ry = vyMod.value * Math.sin(angleRadians.value);
+
+  // let rotate =  angleDegrees.value;
+  // if (vxMod.value < 0) {
+  //   rotate += 180;
+  // }
+  // if (vyMod.value < 0) {
+  //   rotate += 180;
+  // }
+  return `translate(${cx.value},${cy.value}) rotate(${rad2Deg(
+    Math.atan(ry / rx)
+  )})`;
 });
 
 const vx = computed(
@@ -39,9 +62,10 @@ const maxX = computed(() => width.value - r.value);
 const maxY = computed(() => height.value - r.value);
 
 const onReset = () => {
+  isAnimating.value = false;
+  isMoved.value = false;
   cx.value = width.value / 2;
   cy.value = height.value / 2;
-  isAnimating.value = false;
   vxMod.value = 1;
   vyMod.value = 1;
 };
@@ -49,6 +73,7 @@ const onReset = () => {
 const onStart = () => {
   angleDegrees.value = angleDegrees.value % 360;
   isAnimating.value = true;
+  isMoved.value = true;
 
   const animate = (t: number) => {
     if (isAnimating.value) {
@@ -90,6 +115,12 @@ const onStop = () => {
   isAnimating.value = false;
   lastTick.value = null;
 };
+
+watch([height, width], () => {
+  if (!isMoved.value) {
+    onReset();
+  }
+});
 </script>
 
 <template>
@@ -112,7 +143,7 @@ const onStop = () => {
         />
       </div>
       <div class="col-3">
-        <label for="input-angle" class="form-label">Angle</label>
+        <label for="input-angle" class="form-label">Initial Angle (deg)</label>
         <input
           id="input-angle"
           class="form-control"
@@ -121,11 +152,12 @@ const onStop = () => {
           min="0"
           max="359"
           step="1"
-          :disabled="isAnimating"
         />
       </div>
       <div class="col-6">
-        <label class="form-label">&nbsp;</label>
+        <label class="form-label">
+          <!-- -->
+        </label>
         <div>
           <button
             class="btn btn-primary me-2"
@@ -159,6 +191,7 @@ const onStop = () => {
         <circle class="ball" :cx="cx" :cy="cy" :r="r" />
         <path
           class="arrow"
+          :transform="arrowTransform"
           :d="arrowPathD"
           stroke="black"
           fill="none"
@@ -176,7 +209,7 @@ const onStop = () => {
   width: 25rem;
   height: 15rem;
   min-width: 5rem;
-  min-height: 3rem;
+  min-height: 5rem;
   max-width: 50rem;
   max-height: 30rem;
 }
