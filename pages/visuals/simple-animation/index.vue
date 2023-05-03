@@ -16,6 +16,12 @@ const angleRadians = computed(() => {
   return (degrees * Math.PI) / 180;
 });
 
+const arrowPathD = computed(() => {
+  const dx = 2.5 * r.value * Math.cos(angleRadians.value) * vxMod.value;
+  const dy = 2.5 * r.value * Math.sin(angleRadians.value) * vyMod.value;
+  return [`M${cx.value},${cy.value}`, `l${dx},${dy}`].join(" ");
+});
+
 const vx = computed(
   () => velocity.value * vxMod.value * Math.cos(angleRadians.value)
 );
@@ -151,6 +157,15 @@ const onStop = () => {
     <div class="resize bg-white" ref="resizeRef">
       <svg :width="width" :height="height">
         <circle class="ball" :cx="cx" :cy="cy" :r="r" />
+        <path
+          class="arrow"
+          :d="arrowPathD"
+          stroke="black"
+          fill="none"
+          stroke-width="3"
+          stroke-linecap="round"
+          stroke-linejoin="round"
+        />
       </svg>
     </div>
   </section>
