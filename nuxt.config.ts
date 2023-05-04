@@ -13,7 +13,7 @@ const config = defineNuxtConfig({
       script: [],
     },
   },
-  css: ["./assets/styles/main.scss"],
+  css: ["bootstrap/scss/bootstrap.scss", "assets/styles/main.scss"],
   plugins: [],
 });
 
