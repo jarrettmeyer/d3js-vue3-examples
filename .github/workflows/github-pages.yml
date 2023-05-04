@@ -13,9 +13,6 @@ concurrency:
   group: "pages"
   cancel-in-progress: false
 
-env:
-  NUXT_APP_BASE_URL: "/d3js-vue3-examples/"
-
 jobs:
   # Build job
   build:

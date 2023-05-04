@@ -3,7 +3,7 @@
  */
 const config = defineNuxtConfig({
   app: {
-    baseURL: process.env.NUXT_APP_BASE_URL || "/",
+    baseURL: "/d3js-vue-examples/",
     head: {
       htmlAttrs: {
         "data-bs-theme": "dark",
