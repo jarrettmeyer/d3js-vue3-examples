@@ -1,4 +1,6 @@
 <script lang="ts" setup>
+import LinkToSource from "~/components/LinkToSource.vue";
+
 useHead({ title: "Preserve Aspect Ratio | D3.js + Vue 3" });
 const alignOptions = ["Min", "Mid", "Max"];
 const xAlign = ref("Mid");
@@ -79,6 +81,8 @@ const preserveAspectRatio = computed(() => {
       </svg>
     </div>
   </div>
+
+  <LinkToSource />
 </template>
 
 <style lang="scss" scoped>
