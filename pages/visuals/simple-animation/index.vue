@@ -1,23 +1,24 @@
 <script lang="ts" setup>
-import { deg2Rad, rad2Deg } from "../../utils";
-
 const resizeRef = ref<HTMLElement | null>(null);
 const { width, height } = useResizeObserver(resizeRef);
 const cx = ref(25 * 8);
 const cy = ref(15 * 8);
 const r = ref(10);
-const velocity = ref(Math.floor(100 + 100 * Math.random()));
-const angleDegrees = ref(90); // ref(Math.floor(360 * Math.random()));
+const velocity = ref(200);
+const initialAngleDeg = ref(60);
 const isAnimating = ref(false);
 const isMoved = ref(false);
 const lastTick = ref<number | null>(null);
 const vxMod = ref(1);
 const vyMod = ref(1);
 
-const angleRadians = computed(() => {
-  return deg2Rad(angleDegrees.value);
+const initialAngleRad = computed(() => {
+  return (initialAngleDeg.value * Math.PI) / 180;
 });
 
+/**
+ * Draw an arrow from the center of the ball in the direction of 0°.
+ */
 const arrowPathD = computed(() => {
   return [
     `M0,0`,
@@ -29,29 +30,37 @@ const arrowPathD = computed(() => {
   ].join(" ");
 });
 
+/**
+ * It is much simpler to rotate the arrow around the center of the ball than to
+ * recalculate the path positions every time the ball bounces.
+ */
 const arrowTransform = computed(() => {
-  const rx = vxMod.value * Math.cos(angleRadians.value);
-  const ry = vyMod.value * Math.sin(angleRadians.value);
-
-  // let rotate =  angleDegrees.value;
-  // if (vxMod.value < 0) {
-  //   rotate += 180;
-  // }
-  // if (vyMod.value < 0) {
-  //   rotate += 180;
-  // }
-  return `translate(${cx.value},${cy.value}) rotate(${rad2Deg(
-    Math.atan(ry / rx)
-  )})`;
+  return `translate(${cx.value},${cy.value}) rotate(${velocityAngleDeg.value})`;
 });
 
 const vx = computed(
-  () => velocity.value * vxMod.value * Math.cos(angleRadians.value)
+  () => velocity.value * vxMod.value * Math.cos(initialAngleRad.value)
 );
 
 const vy = computed(
-  () => velocity.value * vyMod.value * Math.sin(angleRadians.value)
+  () => velocity.value * vyMod.value * Math.sin(initialAngleRad.value)
 );
+
+const velocityAngleRad = computed(() => {
+  let radians = Math.atan(vy.value / vx.value);
+  if (radians < 0) {
+    radians += Math.PI;
+  }
+  if (vy.value < 0) {
+    radians += Math.PI;
+  }
+  return radians;
+});
+
+const velocityAngleDeg = computed(() => {
+  let degrees = (velocityAngleRad.value * 180) / Math.PI;
+  return degrees;
+});
 
 const minX = computed(() => r.value);
 
@@ -71,7 +80,7 @@ const onReset = () => {
 };
 
 const onStart = () => {
-  angleDegrees.value = angleDegrees.value % 360;
+  initialAngleDeg.value = initialAngleDeg.value % 360;
   isAnimating.value = true;
   isMoved.value = true;
 
@@ -148,7 +157,7 @@ watch([height, width], () => {
           id="input-angle"
           class="form-control"
           type="number"
-          v-model="angleDegrees"
+          v-model="initialAngleDeg"
           min="0"
           max="359"
           step="1"
@@ -188,6 +197,7 @@ watch([height, width], () => {
   <section class="wrapper mb-4 bg-body-secondary">
     <div class="resize bg-white" ref="resizeRef">
       <svg :width="width" :height="height">
+        <VectorLegend transform="translate(40,32)" />
         <circle class="ball" :cx="cx" :cy="cy" :r="r" />
         <path
           class="arrow"
@@ -201,6 +211,18 @@ watch([height, width], () => {
         />
       </svg>
     </div>
+  </section>
+
+  <section>
+    <p><strong>Center:</strong> ({{ cx.toFixed(2) }}, {{ cy.toFixed(2) }})</p>
+    <p>
+      <strong>Velocity vector:</strong> ({{ vx.toFixed(2) }},
+      {{ vy.toFixed(2) }})
+    </p>
+    <p>
+      <strong>Velocity angle:</strong> {{ velocityAngleRad.toFixed(4) }} radians
+      or {{ velocityAngleDeg.toFixed(2) }}°
+    </p>
   </section>
 </template>
 
