@@ -5,6 +5,7 @@
   "private": true,
   "scripts": {
     "dev": "nuxi dev --open --port 3000",
+    "generate": "nuxi generate",
     "prettier-write": "prettier --write --list-different ."
   },
   "dependencies": {
