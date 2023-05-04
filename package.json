@@ -4,6 +4,8 @@
   "description": "",
   "private": true,
   "scripts": {
+    "build": "nuxi build",
+    "clean-build": "rm -rf .nuxt .output dist",
     "dev": "nuxi dev --open --port 3000",
     "generate": "nuxi generate",
     "prettier-write": "prettier --write --list-different ."
@@ -19,5 +21,10 @@
     "prettier": "^2.8.8",
     "sass": "^1.62.1"
   },
-  "keywords": []
+  "keywords": [
+    "d3",
+    "d3.js",
+    "nuxt",
+    "vue"
+  ]
 }
