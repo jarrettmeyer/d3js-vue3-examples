@@ -13,6 +13,9 @@ concurrency:
   group: "pages"
   cancel-in-progress: false
 
+env:
+  NUXT_APP_BASE_URL: ${{ github.event.repository.name }}
+
 jobs:
   # Build job
   build:

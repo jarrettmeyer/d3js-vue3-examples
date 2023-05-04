@@ -3,6 +3,7 @@
  */
 const config = defineNuxtConfig({
   app: {
+    baseURL: process.env.NUXT_APP_BASE_URL || "/",
     head: {
       htmlAttrs: {
         "data-bs-theme": "dark",
