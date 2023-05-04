@@ -1,6 +1,15 @@
 <script lang="ts" setup>
+import * as d3 from "d3";
+
+// Update the page title.
+useHead({ title: "Simple Animation | D3.js + Vue 3" });
+
 const resizeRef = ref<HTMLElement | null>(null);
 const { width, height } = useResizeObserver(resizeRef);
+
+const bounceCounter = ref(0);
+const color = ref(d3.interpolateRainbow(Math.random()));
+
 const cx = ref(25 * 8);
 const cy = ref(15 * 8);
 const r = ref(10);
@@ -9,12 +18,20 @@ const initialAngleDeg = ref(60);
 const isAnimating = ref(false);
 const isMoved = ref(false);
 const lastTick = ref<number | null>(null);
-const vxMod = ref(1);
-const vyMod = ref(1);
 
 const initialAngleRad = computed(() => {
   return (initialAngleDeg.value * Math.PI) / 180;
 });
+
+/**
+ * The vx modifier indicates when the ball has bounced off the left or right edges.
+ */
+const vxMod = ref(1);
+
+/**
+ * The vy modifier indicates when the ball has bounced off the top or bottom edges.
+ */
+const vyMod = ref(1);
 
 /**
  * Draw an arrow from the center of the ball in the direction of 0°.
@@ -100,6 +117,7 @@ const onStart = () => {
       if (cx.value < minX.value) {
         vxMod.value *= -1;
         cx.value = minX.value;
+        bounceCounter.value += 1;
       } else if (cx.value > maxX.value) {
         vxMod.value *= -1;
         cx.value = maxX.value;
@@ -107,9 +125,11 @@ const onStart = () => {
       if (cy.value < minY.value) {
         vyMod.value *= -1;
         cy.value = minY.value;
+        bounceCounter.value += 1;
       } else if (cy.value > maxY.value) {
         vyMod.value *= -1;
         cy.value = maxY.value;
+        bounceCounter.value += 1;
       }
 
       lastTick.value = t;
@@ -130,12 +150,16 @@ watch([height, width], () => {
     onReset();
   }
 });
+
+watch([bounceCounter], () => {
+  color.value = d3.interpolateRainbow(Math.random());
+});
 </script>
 
 <template>
   <h1>Simple Animation</h1>
 
-  <p class="lead">Let's create a simple animation.</p>
+  <p class="lead">Let's create a simple animation of a bouncing ball.</p>
 
   <section class="mb-4">
     <div class="row">
@@ -198,13 +222,20 @@ watch([height, width], () => {
     <div class="resize bg-white" ref="resizeRef">
       <svg :width="width" :height="height">
         <VectorLegend transform="translate(40,32)" />
-        <circle class="ball" :cx="cx" :cy="cy" :r="r" />
+        <circle
+          class="ball"
+          :cx="cx"
+          :cy="cy"
+          :r="r"
+          :fill="color"
+          stroke="none"
+        />
         <path
           class="arrow"
           :transform="arrowTransform"
           :d="arrowPathD"
-          stroke="black"
-          fill="none"
+          :stroke="color"
+          :fill="color"
           stroke-width="3"
           stroke-linecap="round"
           stroke-linejoin="round"
