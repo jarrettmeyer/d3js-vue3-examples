@@ -14,7 +14,7 @@ concurrency:
   cancel-in-progress: false
 
 env:
-  NUXT_APP_BASE_URL: ${{ github.event.repository.name }}
+  NUXT_APP_BASE_URL: "/d3js-vue3-examples/"
 
 jobs:
   # Build job
