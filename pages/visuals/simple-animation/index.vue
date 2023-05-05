@@ -157,12 +157,14 @@ watch([bounceCounter], () => {
 </script>
 
 <template>
-  <h1>Simple Animation</h1>
+  <article>
+    <h1>Simple Animation</h1>
 
-  <p class="lead">Let's create a simple animation of a bouncing ball.</p>
+    <section>
+      <p class="lead">Let's create a simple animation of a bouncing ball.</p>
+    </section>
 
-  <section class="mb-4">
-    <div class="row">
+    <section class="row">
       <div class="col-3">
         <label for="input-velocity" class="form-label">Velocity</label>
         <input
@@ -215,46 +217,49 @@ watch([bounceCounter], () => {
           </button>
         </div>
       </div>
-    </div>
-  </section>
+    </section>
 
-  <section class="wrapper mb-4 bg-body-secondary">
-    <div class="resize bg-white" ref="resizeRef">
-      <svg :width="width" :height="height">
-        <VectorLegend transform="translate(40,32)" />
-        <circle
-          class="ball"
-          :cx="cx"
-          :cy="cy"
-          :r="r"
-          :fill="color"
-          stroke="none"
-        />
-        <path
-          class="arrow"
-          :transform="arrowTransform"
-          :d="arrowPathD"
-          :stroke="color"
-          :fill="color"
-          stroke-width="3"
-          stroke-linecap="round"
-          stroke-linejoin="round"
-        />
-      </svg>
-    </div>
-  </section>
+    <section class="wrapper mb-4 bg-body-secondary">
+      <div class="resize bg-white" ref="resizeRef">
+        <svg :width="width" :height="height">
+          <VectorLegend transform="translate(40,32)" />
+          <circle
+            class="ball"
+            :cx="cx"
+            :cy="cy"
+            :r="r"
+            :fill="color"
+            stroke="none"
+          />
+          <path
+            class="arrow"
+            :transform="arrowTransform"
+            :d="arrowPathD"
+            :stroke="color"
+            :fill="color"
+            stroke-width="3"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+          />
+        </svg>
+      </div>
+    </section>
 
-  <section>
-    <p><strong>Center:</strong> ({{ cx.toFixed(2) }}, {{ cy.toFixed(2) }})</p>
-    <p>
-      <strong>Velocity vector:</strong> ({{ vx.toFixed(2) }},
-      {{ vy.toFixed(2) }})
-    </p>
-    <p>
-      <strong>Velocity angle:</strong> {{ velocityAngleRad.toFixed(4) }} radians
-      or {{ velocityAngleDeg.toFixed(2) }}°
-    </p>
-  </section>
+    <section>
+      <p><strong>Center:</strong> ({{ cx.toFixed(2) }}, {{ cy.toFixed(2) }})</p>
+      <p>
+        <strong>Velocity vector:</strong> ({{ vx.toFixed(2) }},
+        {{ vy.toFixed(2) }})
+      </p>
+      <p>
+        <strong>Velocity angle:</strong>
+        {{ velocityAngleRad.toFixed(4) }} radians or
+        {{ velocityAngleDeg.toFixed(2) }}°
+      </p>
+    </section>
+
+    <LinkToSource />
+  </article>
 </template>
 
 <style lang="scss" scoped>

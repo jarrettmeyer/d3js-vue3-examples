@@ -5,24 +5,33 @@ const { height, width } = useResizeObserver(innerRef);
 </script>
 
 <template>
-  <h1>Resize Element</h1>
-  <p class="lead">
-    This example uses the <code>ResizeObserver</code> API to react to changes in
-    an element's size.
-  </p>
+  <article>
+    <h1>Resize Element</h1>
 
-  <p>
-    In normal usage, a visual will not be resized with CSS
-    <code>resize: both</code>. Instead, the visual will be reactive to the
-    browser.
-  </p>
+    <section>
+      <p class="lead">
+        This example uses the <code>ResizeObserver</code> API to react to
+        changes in an element's size.
+      </p>
 
-  <div class="wrapper bg-body-secondary p-3">
-    <div class="resize bg-body-tertiary p-3" ref="innerRef">
-      <p><strong>Width:</strong> {{ width }}</p>
-      <p><strong>Height:</strong> {{ height }}</p>
-    </div>
-  </div>
+      <p>
+        In normal usage, a visual will not be resized with CSS
+        <code>resize: both</code>. Instead, the visual will be reactive to the
+        browser.
+      </p>
+    </section>
+
+    <section>
+      <div class="wrapper bg-body-secondary p-3">
+        <div class="resize bg-body-tertiary p-3" ref="innerRef">
+          <p><strong>Width:</strong> {{ width }}</p>
+          <p><strong>Height:</strong> {{ height }}</p>
+        </div>
+      </div>
+    </section>
+
+    <LinkToSource />
+  </article>
 </template>
 
 <style lang="scss" scoped>

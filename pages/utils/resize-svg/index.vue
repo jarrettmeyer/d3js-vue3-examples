@@ -5,30 +5,40 @@ const { height, width } = useResizeObserver(innerRef);
 </script>
 
 <template>
-  <h1>Resize SVG</h1>
+  <article>
+    <h1>Resize SVG</h1>
 
-  <p class="lead">
-    Resizing an SVG is functionally the same as
-    <NuxtLink to="/utils/resize-element">resizing any other element</NuxtLink>.
-    Stylistically, the width and height are both set to 100%.
-  </p>
+    <section>
+      <p class="lead">
+        Resizing an SVG is functionally the same as
+        <NuxtLink to="/utils/resize-element"
+          >resizing any other element</NuxtLink
+        >. We are resizing a wrapper <code>div</code> element. The SVG is set to
+        100% width and height of the wrapper element.
+      </p>
+    </section>
 
-  <div class="wrapper bg-body-secondary">
-    <div class="resize bg-white" ref="innerRef">
-      <svg :width="width" :height="height">
-        <g transform="translate(16, 16)" font-size="16">
-          <text y="16">
-            <tspan>width:</tspan>
-            {{ width }}
-          </text>
-          <text :y="40">
-            <tspan>height:</tspan>
-            {{ height }}
-          </text>
-        </g>
-      </svg>
-    </div>
-  </div>
+    <section>
+      <div class="wrapper bg-body-secondary">
+        <div class="resize bg-white" ref="innerRef">
+          <svg :width="width" :height="height">
+            <g transform="translate(16, 16)" font-size="16">
+              <text y="16">
+                <tspan>width:</tspan>
+                {{ width }}
+              </text>
+              <text :y="40">
+                <tspan>height:</tspan>
+                {{ height }}
+              </text>
+            </g>
+          </svg>
+        </div>
+      </div>
+    </section>
+
+    <LinkToSource />
+  </article>
 </template>
 
 <style lang="scss" scoped>

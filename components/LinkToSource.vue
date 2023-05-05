@@ -10,16 +10,14 @@ const href = computed(
 
 <template>
   <section class="link-to-source">
-    <a :href="href">
-      <BIGithub />
-      {{ route.path }}
-    </a>
+    <p>
+      Source code:
+      <a :href="href" target="_blank">
+        <BIGithub />
+        {{ route.path }}
+      </a>
+    </p>
   </section>
 </template>
 
-<style lang="scss" scoped>
-.link-to-source {
-  margin-top: 2rem;
-  margin-bottom: 2rem;
-}
-</style>
+<style lang="scss" scoped></style>
