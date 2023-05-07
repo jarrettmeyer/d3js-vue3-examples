@@ -144,6 +144,8 @@ onMounted(() => {
         </text>
       </svg>
     </section>
+
+    <LinkToSource />
   </article>
 </template>
 
