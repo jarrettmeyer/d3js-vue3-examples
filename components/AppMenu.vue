@@ -36,6 +36,9 @@
     <li>
       <NuxtLink to="/visuals/simple-animation">Simple Animation</NuxtLink>
     </li>
+    <li>
+      <NuxtLink to="/visuals/line-chart">Line Chart</NuxtLink>
+    </li>
   </ul>
 </template>
 

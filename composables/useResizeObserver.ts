@@ -1,3 +1,5 @@
+export type ResourceObserverTarget = Ref<HTMLElement | SVGElement | null>;
+
 export interface UseResizeObserverOptions {
   cssOverflow?: "auto" | "hidden" | "scroll" | "visible";
   cssResize?: "both" | "horizontal" | "none" | "vertical";
@@ -6,7 +8,7 @@ export interface UseResizeObserverOptions {
 }
 
 export function useResizeObserver(
-  target: Ref<HTMLElement | null | undefined>,
+  target: ResourceObserverTarget,
   options: UseResizeObserverOptions = {}
 ) {
   const height = ref(options.initialHeight ?? 0);
