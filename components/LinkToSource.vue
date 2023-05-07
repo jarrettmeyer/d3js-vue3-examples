@@ -3,16 +3,17 @@ const route = useRoute();
 
 const baseUrl = `https://github.com/jarrettmeyer/d3js-vue3-examples/`;
 
-const href = computed(
-  () => `${baseUrl}blob/main/pages/${route.path}/index.vue`
-);
+const href = computed(() => {
+  const root = `${baseUrl}blob/main/pages`;
+  return `${root}${route.path}/index.vue`;
+});
 </script>
 
 <template>
   <section class="link-to-source">
     <p>
       Source code:
-      <a :href="href" target="_blank">
+      <a :href="href" target="_blank" rel="noopener noreferrer">
         <BIGithub />
         {{ route.path }}
       </a>
